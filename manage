@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+import argparse
+import subprocess
+
+
+def handle_udb_date(date_string) -> None:
+    print(f"Updating the database from date: {date_string}")
+
+
+def handle_udb_url(url_string) -> None:
+    print(f"Updating the database from URL: {url_string}")
+
+
+def handle_run() -> None:
+    subprocess.run(["python3", "run.py"])
+    print("Running the Flask app...")
+
+
+def main() -> None | int:
+    parser = argparse.ArgumentParser(description="Management script.")
+
+    parser.add_argument(
+        "--udb-date",
+        type=str,
+        metavar="yyyy-mm",
+        help="update the database from date in the 'yyyy-mm' format.",
+    )
+
+    parser.add_argument(
+        "--udb-url", type=str, metavar="url", help="update the database from URL."
+    )
+
+    parser.add_argument(
+        "command",
+        nargs="?",
+        choices=["run"],
+        help="Specify 'run' to start the Flask app.",
+    )
+
+    args = parser.parse_args()
+
+    if args.udb_date:
+        handle_udb_date(args.udb_date)
+
+    if args.udb_url:
+        handle_udb_url(args.udb_url)
+
+    if args.command == "run":
+        handle_run()
+
+
+if __name__ == "__main__":
+    main()
