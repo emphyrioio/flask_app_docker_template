@@ -9,6 +9,7 @@ db_path = os.path.join(instance_dir, db_name)
 class Config:
     DEBUG = False
     TESTING = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + db_path
 
 
